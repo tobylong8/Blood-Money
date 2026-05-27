@@ -1,6 +1,6 @@
 from random import randint
 from time import sleep
-from characters import *
+from characters.player import *
 from utils import *
 
 def player_initiative(player, condition=None):

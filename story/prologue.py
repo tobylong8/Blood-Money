@@ -1,6 +1,6 @@
 from random import randint
 from time import sleep
-from characters import *
+from characters.player import *
 from utils import *
 from combat import *
 import pyfiglet # type: ignore

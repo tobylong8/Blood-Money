@@ -1,7 +1,7 @@
-from characters import *
+from characters.player import *
 from utils import *
 from combat import *
-from prologue import *
+from story.prologue import *
 
 #intro()
 #duel()
