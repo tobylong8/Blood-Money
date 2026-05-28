@@ -18,7 +18,11 @@ def intro():
     print("Some choices will trigger ability checks — the outcome depends on your stats and the roll of a dice.\n")
     print("You play as John Calloway, an infamous outlaw and hired gun with the best shot in the state.")
     print("And the last man who should ever trust a stranger buying him a drink.\n")
-    input("[Press enter to play]")
+    input("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
+    choice1 = choice(2)
+    if choice1 == "2":
+        # Mechanics overview
+        print("")
     print("\n")
 
 def duel():
