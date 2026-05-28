@@ -55,7 +55,7 @@ def duel():
             print("'It's too late now to apologize now you damn cocksucker!' He shouts, furiously looking at you.\n")
         elif persuasion_result == "critical failure":
             print("\nAfter your attempt to persuade him, he looks furious. He points his revolver to the sky and shoots. You see people stand back.")
-            print("'IF YOU THINK YOU CAN BE A GODDAMN COWARD AFTER INSULTING MY MOTHER, THEN YOU CAN STICK YOUR HEAD RIGHT UP YOUR ASS!'\n")    
+            print("'IF YOU THINK YOU CAN BE A GODDAMN COWARD AFTER INSULTING MY MOTHER, THEN YOU CAN GO AND SHOOT YOURSELF!'\n")    
     elif choice1 == "3":
         print("\nYou remain silent, staring itently into his eyes. He stays quiet after that.\n")
     pause()
