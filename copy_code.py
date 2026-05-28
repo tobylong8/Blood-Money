@@ -1,20 +1,33 @@
 import pyperclip
+import os
 
-files = ["main.py", "characters.py", "utils.py", "combat.py", "story.py"]
+project_root = "."
+
+files = [
+    "main.py", 
+    "characters/player.py", 
+    "characters/npcs.py", 
+    "characters/enemies.py", 
+    "utils.py", 
+    "story_state.py", 
+    "combat.py", 
+    "story/prologue.py"
+]
 
 output = "Here are the files for my project:\n\n"
 
 for file in files:
+    filepath = os.path.join(project_root, file)
     try:
-        with open(file, "r", encoding="utf-8") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             output += f"### File: {file}\n"
             output += "```python\n"
             output += f.read().strip()
             output += "\n```\n\n"
     except FileNotFoundError:
-        print(f"Warning: '{file}' not found. Skipping...")
+        print(f"Warning: '{filepath}' not found. Skipping...")
 
-if output:
+if output != "Here are the files for my project:\n\n":
     pyperclip.copy(output)
     print("Formatted prompt copied to clipboard!")
 else:

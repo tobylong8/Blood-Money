@@ -1,9 +1,11 @@
 from random import randint
 from time import sleep
 from characters.player import *
+from characters.enemies import *
+from characters.npcs import *
 from utils import *
 from combat import *
-import pyfiglet # type: ignore
+import pyfiglet
 
 def intro():
     print("=" * 65 + "\n")

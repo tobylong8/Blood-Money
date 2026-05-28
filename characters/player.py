@@ -12,10 +12,7 @@ class Character:
         print(f"You take {amount} damage, meaning you have {self.remaining_health}/{self.max_health} health remaining.")
 
     def is_dead(self):
-        if self.remaining_health <= 0:
-            return "dead"
-        else:
-            return "alive"
+        return self.remaining_health <= 0
 
 class Player(Character):
     def __init__(self):
@@ -75,11 +72,4 @@ class Player(Character):
             damage_modifier=self.damage_modifier
         )
 
-
-class Enemy(Character):
-    def __init__(self, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier):
-        super().__init__(remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier)
-
-
 player = Player()
-tank = Enemy(18, 18, 12, 4, 4, 3)
