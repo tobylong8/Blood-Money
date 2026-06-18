@@ -49,7 +49,7 @@ def duel():
         if persuasion_result == "success" or persuasion_result == "critical success":
             print("\n'Guess we shouldn't fight with the kids around' He says, his angry expression fading.")
             print("Suddenly, you see his friend slap him. 'What the hell has gotten into you, you're just going to let him get away with insultin' your mother!'")
-            print("He remains silent for a few seconds, before his angry expression returns. 'You better start singing your prayers you damn bastard.'\n")
+            print("He remains silent for a few seconds, before his angry expression returns. 'You damn bastard.'\n")
         elif persuasion_result == "failure":
             print("\nYou see that his angry expression isn't gone.")
             print("'It's too late now to apologize now you damn cocksucker!' He shouts, furiously looking at you.\n")
@@ -104,7 +104,7 @@ def duel():
         print("Firing...\n")
         sleep(2)
         print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor. The crowd of people go silent, and a few people jeer.\n")
-        print("Suddenly, one of the man's friends, a tall, muscular tank, storms up to you. 'That's my brother you just shot, you're a dead man!' The man throws a punch for your face.")
+        print("Suddenly, one of the man's friends, a tall, muscular brute, storms up to you. 'That's my brother you just shot, you're a dead man!' The man throws a punch for your face.")
         print("\nWould you like to try and dodge it (1) or try and block it (2)")
         choice3 = choice(2)
         if choice3 == "1":
