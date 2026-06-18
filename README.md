@@ -20,11 +20,12 @@ Run `main.py` to start the game. When prompted to make a choice, type the corres
 
 ## Files
 
-- `main.py` — entry point
-- `story.py` — all narrative and dialogue
-- `combat.py` — combat system
-- `characters.py` — player and enemy stats
-- `utils.py` — dice rolling, ability checks, and shared utilities
+- `main.py` - entry point
+- `story folder` - holds .py files containing the story
+- `characters folder` - holds .py files containing character info
+- `utils.py` - dice rolling, ability checks, and shared utilities
+- `combat.py` - combat system
+- `story_state.py` - stores choices, 
 - `copy_code.py` - saves all code to clipboard
 
 ## Requirements

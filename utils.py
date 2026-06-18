@@ -59,7 +59,7 @@ def ability_check(player, skill, dc, condition=None):
         print("Rolling with disadvantage...")
         roll = roll_dice(20, condition="disadvantage")
     else:
-        print("Rolling...")
+        print("Rolling the d20...")
         roll = roll_dice(20)
     total = roll + modifier
     sleep(2)
@@ -73,11 +73,11 @@ def ability_check(player, skill, dc, condition=None):
         return result
     elif total >= dc:
         result = "success"
-        print(f"You got a {total} ({roll} + {modifier}), meaning you succeed.")
+        print(f"You got a total of {total} (your roll {roll} + your modifier {modifier}), meaning you succeed.")
         return result
     else:
         result = "failure"
-        print(f"You got a {total} ({roll} + {modifier}), meaning you fail.")
+        print(f"You got a total of {total} (your roll {roll} + your modifier {modifier}), meaning you fail.")
         return result
 
 def display_stats(player):
