@@ -6,5 +6,6 @@ from story_state import *
 from combat import *
 from story.prologue import *
 
-intro()
-duel()
+#intro()
+#duel()
+
