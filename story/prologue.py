@@ -18,11 +18,14 @@ def intro():
     print("Some choices will trigger ability checks — the outcome depends on your stats and the roll of a dice.\n")
     print("You play as John Calloway, an infamous outlaw and hired gun with the best shot in the state.")
     print("And the last man who should ever trust a stranger buying him a drink.\n")
-    input("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
+    print("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
     choice1 = choice(2)
     if choice1 == "2":
         # Mechanics overview
-        print("")
+        print("Mechanics overview...")
+        print("\n")
+    if choice1 == "1":
+        pass
     print("\n")
 
 def duel():
@@ -128,7 +131,7 @@ def duel():
             if block_result == "critical success":
                 dmg = randint(2,4)
                 print(f"\nYou raise your arm, blocking the punch with ease. The man hurts his knuckles, taking {dmg} damage.")
-                tank.remaining_health = tank.remaining_health - dmg
+                enemy_brother.remaining_health = enemy_brother.remaining_health - dmg
             elif block_result == "failure":
                 print("\nYou try to raise your arm, but it's too late. The man's fist goes straight into your nose.")
                 player.take_damage(randint(2,4))
