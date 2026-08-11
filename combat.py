@@ -1,9 +1,19 @@
+import random
 from random import randint
 from time import sleep
 from characters.player import *
 from characters.npcs import *
 from characters.enemies import *
 from utils import *
+
+player_dodge = False
+enemy_dodge = False
+
+def check_if_dead(person):
+    if person.remaining_health <= 0:
+        return True
+    else:
+        return False
 
 def roll_initiative(person, condition=None):
     bonus = person.initiative_modifier
@@ -28,44 +38,49 @@ def roll_initiative(person, condition=None):
         roll = roll_dice(20)
 
     total = roll + bonus
-    #sleep(2) REMOVE HASHTAG LATER
+    sleep(1)
     if person == player:
-        print(f"You got {total} ({roll} + {bonus}).")
+        print(f"You got {total} ({roll} + {bonus})")
     else:
-        print(f"{person.name} got {total} ({roll} + {bonus}).")
+        print(f"{person.name} got {total} ({roll} + {bonus})")
+
+    if roll == 20 and person == player:
+        total += 100
+    elif roll == 20:
+        total += 50
 
     return total
 
-def player_attack(player, target_ac, condition=None):
+def player_attack(player, enemy, condition=None):
     attack_modifier = player.attack_modifier
     damage_modifier = player.damage_modifier
     damage_dice = player.damage_dice
 
     if condition == "advantage":
-        print("Rolling to-hit with advantage...")
+        print(f"Rolling to-hit against {enemy.name} with advantage...")
         roll = roll_dice(20,condition="advantage")
     elif condition == "disadvantage":
-        print("Rolling to-hit with disadvantage...")
+        print(f"Rolling to-hit against {enemy.name} with disadvantage...")
         roll = roll_dice(20, condition="disadvantage")
     else:
-        print("Rolling to-hit...")
+        print(f"Rolling to-hit against {enemy.name}...")
         roll = roll_dice(20)
 
     total = roll + attack_modifier
-    sleep(2)
+    sleep(1)
 
     if roll == 1:
         attack_result = "miss"
-        print("You rolled a Natural 1, meaning you miss.\n")
+        print("You rolled a Natural 1, meaning you critically miss!\n")
     elif roll == 20:
         attack_result = "critical hit"
         print("You rolled a Natural 20, meaning you do double dice!")
-    elif total >= target_ac:
+    elif total >= enemy.ac:
         attack_result = "hit"
-        print(f"You got a {total} ({roll} + {attack_modifier}), meaning you hit.")
+        print(f"You got a {total} ({roll} + {attack_modifier}), meaning you hit!")
     else:
         attack_result = "miss"
-        print(f"You got a {total} ({roll} + {attack_modifier}), meaning you miss.\n")
+        print(f"You got a {total} ({roll} + {attack_modifier}), meaning you miss\n")
         return "miss"
     
     sleep(1)
@@ -73,30 +88,124 @@ def player_attack(player, target_ac, condition=None):
     if attack_result == "hit":
         damage_roll = roll_dice(damage_dice)
         damage = damage_roll + damage_modifier
-        print("\n")
+        print()
         print("Rolling damage...")
-        sleep(2)
-        print(f"You deal {damage} damage ({damage_roll} + {damage_modifier}).")
-        print("\n")
+        sleep(1)
+        print(f"You deal {damage} damage ({damage_roll} + {damage_modifier})")
+        print()
+        enemy.remaining_health -= damage
+        if check_if_dead(enemy) == True:
+            enemy.remaining_health = 0
+            return
+        print(f"{enemy.name} has {enemy.remaining_health}/{enemy.max_health} health")
         return damage
     elif attack_result == "critical hit":
         damage_roll = roll_dice(damage_dice) 
         damage_roll2 = roll_dice(damage_dice)
         damage = damage_roll + damage_roll2 + damage_modifier
-        print("\n")
+        print()
         print("Rolling damage...")
-        sleep(2)
-        print(f"You deal {damage} damage ({damage_roll} + {damage_roll2} + {damage_modifier}).")
-        print("\n")
+        sleep(1)
+        print(f"You deal {damage} damage ({damage_roll} + {damage_roll2} + {damage_modifier})")
+        print()
+        enemy.remaining_health -= damage
+        if check_if_dead(enemy) == True:
+            enemy.remaining_health = 0
+            return
+        print(f"{enemy.name} has {enemy.remaining_health}/{enemy.max_health} health")
+        return damage
+
+def enemy_ai_decision(enemy):
+    if enemy.ai_type == "balanced":
+        if enemy.remaining_health < (enemy.max_health * 0.3):
+            choices = ["attack", "dodge", "dodge", "dodge"] 
+        else:
+            choices = ["attack", "attack", "attack", "attack", "attack", "attack", "attack", "dodge", "dodge", "dodge"]
+        
+        chosen_action = random.choice(choices)
+        return chosen_action
+    
+    elif enemy.ai_type == "brute":
+        if enemy.remaining_health < (enemy.max_health * 0.3):
+            choices = ["attack", "attack", "dodge", "dodge"] 
+        else:
+            choices = ["attack", "attack", "attack", "attack", "attack", "attack", "attack", "attack", "attack", "dodge"]
+        
+        chosen_action = random.choice(choices)
+        return chosen_action
+
+def enemy_attack(enemy, condition=None):
+    attack_modifier = enemy.attack_modifier
+    damage_modifier = enemy.damage_modifier
+    damage_dice = enemy.damage_dice
+
+    if condition == "advantage":
+        print(f"{enemy.name} is rolling to hit against you with advantage...")
+        roll = roll_dice(20,condition="advantage")
+    elif condition == "disadvantage":
+        print(f"{enemy.name} is rolling to hit against you with disadvantage...")
+        roll = roll_dice(20, condition="disadvantage")
+    else:
+        print(f"{enemy.name} is rolling to hit against you...")
+        roll = roll_dice(20)
+
+    total = roll + attack_modifier
+    sleep(1)
+
+    if roll == 1:
+        attack_result = "miss"
+        print(f"{enemy.name} rolled a Natural 1, meaning he critically misses\n")
+    elif roll == 20:
+        attack_result = "critical hit"
+        print(f"{enemy.name} rolled a Natural 20, meaning he rolls double dice!")
+    elif total >= player.ac:
+        attack_result = "hit"
+        print(f"{enemy.name} got a {total} ({roll} + {attack_modifier}), meaning he hits")
+    else:
+        attack_result = "miss"
+        print(f"{enemy.name} got a {total} ({roll} + {attack_modifier}), meaning he misses\n")
+        return "miss"
+    
+    sleep(1)
+
+    if attack_result == "hit":
+        damage_roll = roll_dice(damage_dice)
+        damage = damage_roll + damage_modifier
+        print()
+        print("Rolling damage...")
+        sleep(1)
+        print(f"{enemy.name} deals {damage} damage ({damage_roll} + {damage_modifier})")
+        print()
+        player.remaining_health -= damage
+        if check_if_dead(player) == True:
+            player.remaining_health = 0
+            return
+        print(f"You have {player.remaining_health}/{player.max_health} health")
+        return damage
+    elif attack_result == "critical hit":
+        damage_roll = roll_dice(damage_dice) 
+        damage_roll2 = roll_dice(damage_dice)
+        damage = damage_roll + damage_roll2 + damage_modifier
+        print()
+        print("Rolling damage...")
+        sleep(1)
+        print(f"{enemy.name} deals {damage} damage ({damage_roll} + {damage_roll2} + {damage_modifier})")
+        print()
+        player.remaining_health -= damage
+        if check_if_dead(player) == True:
+            player.remaining_health = 0
+            return
+        print(f"You have {player.remaining_health}/{player.max_health} health")
         return damage
 
 def combat(*combatants):
-    initiative_order = [] 
+    global player_dodge, enemy_dodge
+    initiative_order = []
     
     for person in combatants:
         roll = roll_initiative(person)
         initiative_order.append((roll, person))
-        #sleep(1) REMOVE HASHTAG LATER
+        sleep(1)
         print()
 
     initiative_order.sort(reverse=True)
@@ -106,38 +215,130 @@ def combat(*combatants):
     for person in initiative_order:
         print(person.name)
 
-    ########################################
     print()
 
     while player.remaining_health > 0 and len(initiative_order) != 1:
         for person in initiative_order:
-            if person == enemy_brother:
-                continue
             if person == player:
                 print("It is your turn. Would you like to:")
                 print("1) Attack")
-                print("2) Defend")
-                action = choice(2)
+                print("2) Dodge")
+                print("3) Heal (once per long rest)")
+                chosen_action = choice(3)
+                print()
 
-                if action == "1":
-                    choices = initiative_order.copy()
-                    choices.remove(player)
+                if chosen_action == "1":
+                    if player.double_tap_used == True:
+                        choices = initiative_order.copy()
+                        choices.remove(player)
 
-                    print()
-                    if len(choices) != 1:
-                        print("Who would you like to attack:")
-                        for index, enemy in enumerate(choices, start=1):
-                            print(f"{index}) {enemy.name}")
+                        if len(choices) != 1:
+                            print("Who would you like to attack:")
+                            for index, enemy in enumerate(choices, start=1):
+                                print(f"{index}) {enemy.name}")
+                            target = choice(len(choices))
+                            target = choices[int(target) - 1]
+                            if enemy_dodge == True:
+                                player_attack(player, target, "disadvantage")
+                            else:
+                                player_attack(player, target)
+                        else:
+                            if enemy_dodge == True:
+                                player_attack(player, choices[0], "disadvantage")  
+                            else:
+                                player_attack(player, choices[0])
                     else:
-                        print(f"You attack {choices[0].name}")
-
-            break
-        break
-
-
-
-            
-
+                        print("Would you like to use your once per long rest ability to do double attacks for one turn:")
+                        print("1) Yes")
+                        print("2) No")
+                        print()
+                        use_double_tap = choice(2)
+                        if use_double_tap == "2":
+                            choices = initiative_order.copy()
+                            choices.remove(player)
+    
+                            if len(choices) != 1:
+                                print("Who would you like to attack:")
+                                for index, enemy in enumerate(choices, start=1):
+                                    print(f"{index}) {enemy.name}")
+                                target = choice(len(choices))
+                                target = choices[int(target) - 1]
+                                if enemy_dodge == True:
+                                    player_attack(player, target, "disadvantage")
+                                else:
+                                    player_attack(player, target)
+                            else:
+                                if enemy_dodge == True:
+                                    player_attack(player, choices[0], "disadvantage")  
+                                else:
+                                    player_attack(player, choices[0])
+                        else:
+                            for i in range(player.attacks_per_turn * 2):
+                                choices = initiative_order.copy()
+                                choices.remove(player)
         
+                                if len(choices) != 1:
+                                    print("Who would you like to attack:")
+                                    for index, enemy in enumerate(choices, start=1):
+                                        print(f"{index}) {enemy.name}")
+                                    target = choice(len(choices))
+                                    target = choices[int(target) - 1]
+                                    if enemy_dodge == True:
+                                        player_attack(player, target, "disadvantage")
+                                    else:
+                                        player_attack(player, target)
+                                else:
+                                    if enemy_dodge == True:
+                                        player_attack(player, choices[0], "disadvantage")  
+                                    else:
+                                        player_attack(player, choices[0])
+                                player.double_tap_used = True
+
+                    enemy_dodge = False
+                    
+
+                elif chosen_action == "2":
+                    print("You dodge")
+                    player_dodge = True
+
+                elif chosen_action == "3":
+                    print("I haven't coded this yet.")
+                    #TODO: code second wind
 
 
+                for person in initiative_order:
+                    if check_if_dead(person) == True:
+                        print(f"{person.name} is dead")
+                        print()
+                        initiative_order.remove(person)
+
+            else:
+                enemy_action = enemy_ai_decision(person)
+
+                if enemy_action == "attack":
+                    for i in range (person.number_of_attacks):
+                        if player_dodge == True:
+                            enemy_attack(person, "disadvantage")
+                            player_dodge = False 
+                            print()
+                        else:
+                            enemy_attack(person)
+                            print()
+                        
+                elif enemy_action == "dodge":
+                    print()
+                    print(f"{person.name} takes a defensive stance and dodges!")
+                    print()
+                    enemy_dodge = True
+
+                surviving_combatants = []
+                for person in initiative_order:
+                    if check_if_dead(person):
+                        if person == player:
+                            print("You are dead\n")
+                        else:
+                            print(f"{person.name} is dead\n")
+                    else:
+                        surviving_combatants.append(person)
+
+                initiative_order = surviving_combatants

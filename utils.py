@@ -1,5 +1,9 @@
 from random import randint
 from time import sleep
+import os, subprocess
+
+def clear():
+    subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
 def roll_dice(sides, condition=None):
     roll1 = randint(1,sides)
@@ -14,31 +18,19 @@ def roll_dice(sides, condition=None):
 
     return roll
 
-def choice(number_of_choices):
-    if number_of_choices == 2:
-        while True:
-            choice = input()
-            if choice in ["1", "2"]:
-                return choice
-            print()
-            print("Please enter 1 or 2.")
-    elif number_of_choices == 3:
-        while True:
-            choice = input()
-            if choice in ["1", "2", "3"]:
-                return choice
-            print()
-            print("Please enter 1, 2, or 3.")
-    elif number_of_choices == 4:
-        while True:
-            choice = input()
-            if choice in ["1", "2", "3", "4"]:
-                return choice
-            print()
-            print("Please enter 1, 2, 3 or 4.")
+def choice(*number_of_choices):
+    while True:
+        choice = input()
+        right_choices = [str(i) for i in range(1, number_of_choices[0] + 1)]
+        if choice in right_choices:
+            return choice
+        print()
+        print(f"Please enter a number between 1 and {number_of_choices[0]}.")  
 
 def pause():
+    print()
     input("[Press Enter to Continue]")
+    print()
 
 def ability_check(player, skill, dc, condition=None):
     print(f"\n[Press enter to roll {skill}]")

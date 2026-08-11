@@ -14,26 +14,46 @@ def intro():
     print("\n")
     print("Blood Money is a text-based western adventure with Dungeons and Dragons mechanics.")
     print("You will make choices, roll dice, and live with the consequences.\n")
-    print("To make a choice, type the corresponding number and press enter.")
-    print("Some choices will trigger ability checks — the outcome depends on your stats and the roll of a dice.\n")
-    print("You play as John Calloway, an infamous outlaw and hired gun with the best shot in the state.")
-    print("And the last man who should ever trust a stranger buying him a drink.\n")
+    print("To make a choice, type the corresponding number and press enter")
+    print("Some choices will trigger ability checks — the outcome depends on your stats and the roll of a dice\n")
+    print("You play as John Calloway, an infamous outlaw and hired gun with the best shot in the state")
+    print("And the last man who should ever trust a stranger buying him a drink\n")
+    print("As you progress through the story you will gain abilities\n")
+    print("Currently you have 2 abilities that you can use once per long rest:")
+    print("Double Tap - doubles the number of attacks for one turn")
+    print("Grit - heals hit points equal to 1d10 + your level\n")
     print("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
     choice1 = choice(2)
+
     if choice1 == "2":
-        # Mechanics overview
-        print("Mechanics overview...")
-        print("\n")
+        print()
+        print("Dice notation is a shortened way of describing what dice is being rolled. The 'd' stands for dice, and the number following it represents the number of sides on that dice.")
+        print("A Natural 20 is rolling a 20 (the best result) and a Natural 1 is rolling a 1 (the worst result)")
+        pause()
+        print("Ability checks are used when a character tries to perform an action that has a chance of failure (other than attacking an enemy). The game rolls a 20-sided die and adds a specific modifier tied to that character's stats (like strength or intelligence). If the final total meets or beats a target number set by the game, the action succeeds. Special conditions like advantage (rolling two dice and taking the higher result) or disadvantage (rolling two and taking the lower) can modify these rolls.")
+        pause()
+        print("Combat is structured in a turn-based loop:")
+        pause()
+        print("Initiative: At the start of a fight, everyone rolls a d20 plus their initiative modifier to determine the turn order. (rolling a Natural 20 puts you first in initiative automatically).")
+        pause()
+        print("Turns & Actions: During a turn, characters can choose to attack, dodge (which gives incoming attackers disadvantage), or use items/abilities.")
+        pause()
+        print("To-Hit vs. AC: When attacking, a player or enemy rolls a d20 plus an attack modifier. If the total meets or beats the target's Armor Class (AC), the attack hits, and damage dice are rolled to reduce the target's remaining health.")
+        print("Rolling a Natural 20 results in a critical hit for extra damage, and rolling a Natural 1 means you automatically miss\n")
+        input("[Press Enter to Start the Game]")
     if choice1 == "1":
         pass
-    print("\n")
 
 def duel():
+    clear()
+    global lost_duel
+    lost_duel = False
     print("June 7th, 1872. You stand in hot summer sun, facing a large, angry man on the other side of the street. You lock eyes, gripping your holsters, and you feel a bead of sweat drip from your brow. There's a hushed crowd, and you see a mother cover her boy's eyes.")
     print("\n'I'm sending you straight to hell!' He shouts, his mean eyes staring intensely into yours.\n")
     
     print("Would you like to antagonise him (1), persuade him not to fight (2), or not respond (3)?")
     choice1 = choice(3)
+
     if choice1 == "1":
         print("\nYou respond, wiping the barrel of your revolver with a cloth. 'Last feller that talked to me like that ain't talkin' no more.'")
         intimidation_result = ability_check(player, "intimidation",12)
@@ -47,9 +67,10 @@ def duel():
         if intimidation_result == "failure":
             print("\nYou see the man smirk, before chuckling to himself. 'You really aren't as tough as you thought, friend. Let's just get this done before you say something else stupid.'\n")
         if intimidation_result == "critical failure":
-            print("\nAs you attempt to intimidate him, your voice breaks slightly. You see the man cackle to himself, and a few members of the crowd join in. 'This might me the funniest duel I have ever done.' The man says, before chuckling some more.")
+            print("\nAs you attempt to intimidate him, your voice goes hoarse. You see the man cackle to himself, and a few members of the crowd join in. 'This might me the funniest duel I have ever done.' The man says, before chuckling some more.")
             print("Your embarrassment causes you to have disadvantage in the duel.\n")
             print("'I feel kinda bad that I'm about to kill you now.' He says, still smiling.\n")    
+
     elif choice1 == "2":
         print("\nYou attempt to persuade him, 'Come on now, there's no need to fight. It was just a joke.'")
         persuasion_result = ability_check(player, "persuasion",15)
@@ -63,15 +84,18 @@ def duel():
         elif persuasion_result == "critical failure":
             print("\nAfter your attempt to persuade him, he looks furious. He points his revolver to the sky and shoots. You see people stand back.")
             print("'IF YOU THINK YOU CAN BE A GODDAMN COWARD AFTER INSULTING MY MOTHER, THEN YOU CAN GO AND SHOOT YOURSELF!'\n")    
+
     elif choice1 == "3":
-        print("\nYou remain silent, staring itently into his eyes. He stays quiet after that.\n")
+        print("\nYou remain silent, staring itently into his eyes. He stays quiet after that.")
+
     pause()
-    print("\nA few tense seconds of silence pass, where the only thing you hear is the howling wind. Eventually, the silence is broken when the man says: 'When is this duel gonna start goddamnit?'\n")
+    print("A few tense seconds of silence pass, where the only thing you hear is the howling wind. Eventually, the silence is broken when the man says: 'When is this duel gonna start goddamnit?'\n")
     print("A tall man wearing a long, brown coat with a silver star pinned to his chest steps from the crowd, 'Hello gentlemen, I'm Sheriff Briggs. I'll be overseeing this duel, and I want to see a fair game from both of you.'\n")
     print("'I will count to 10. When I say 10, you can start shooting. If you shoot earlier than 10, there will be consequences.'\n")
     print("The sheriff stands in the middle of the street, he clears his throat and begins counting: '1, 2, 3, 4.'\n")
     print("Would you like to comply with the rules and wait for 10 seconds (1), or shoot at him early (2)?")
     choice2 = choice(2)
+
     if choice2 == "1":
         print("\nThe sheriff continues counting. You see your opponent gripping his holster, anxiously waiting for when he says 10. You lock eyes, like a predator staring down its prey.")
         print("A few more seconds pass, until the sheriff shouts '8, 9, 10!'")
@@ -89,21 +113,20 @@ def duel():
                 print("Firing...\n")
                 sleep(2)
                 print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor, a gaping wound spewing blood. The crowd of people go silent. You get up from the ground and put your revolver back in your holster")
-                # Bar
             elif dive == "failure":
                 print("You try and dive but it is too late. The bullet goes straight into your left shoulder.\n")
                 player.take_damage(randint(3,5))
-                print("You lay on the ground for a few seconds, clutching your shoulder. Several bullets narrowly miss you. Through the constant ringing, you hear the man yell about running out of ammo. You hear sprinting footsteps coming towards you. You turn towards him, and you see him running full force with a knife in his hand. You point the revolver at his head.")
+                print("You lay on the ground for a few seconds, clutching your shoulder. Several bullets narrowly miss you. Through the constant ringing, you hear the man yell about running out of ammo. You hear sprinting footsteps coming towards you. You turn towards him, and you see him running full force with a knife in his hand. You point the revolver at him.")
                 input("[Press enter to fire your revolver].")
                 print("Firing...\n")
                 sleep(2)
-                print("Through the nauseating pain, you pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor, a gaping wound spewing blood. The crowd of people go silent. You put your revolver back in your holster, your left hand pressed tight against your bullet wound.\n")
+                print("Through the nauseating pain, you pull the trigger, and the bullet speeds through the air, and it hits the man in the chest. He falls to the floor, a gaping wound spewing blood. The crowd of people go silent. You put your revolver back in your holster, your left hand pressed tight against your bullet wound.")
                 pause()
                 print("You begin to feel dizzy, and you fall unconscious.")
-                # Hospital
+                lost_duel = True
         else:
             print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor, a gaping wound spewing blood. The crowd of people go silent, then you hear hushed whispers. You put your revolver back in your holster.\n")
-            # Bar
+
     elif choice2 == "2":
         print("\nThe sheriff continues counting. You see your opponent gripping his holster, anxiously waiting for when he says 10. You lock eyes, like a predator staring down its prey.")
         print("A few more seconds pass, but before the sheriff says 10, you take out your revolver.\n")
@@ -112,5 +135,8 @@ def duel():
         sleep(2)
         print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor. The crowd of people go silent, and a few people jeer.\n")
         print("Suddenly, a tall, muscular man, storms up to you. 'That's my brother you just shot, you're a dead man!'")
-        print("You see one of his friends yell: 'Thomas is gonna wipe the floor with you!'")
+        print("You see one of his friends yell: 'Cole is gonna wipe the floor with you!'")
+        combat(player, cole)
+
+#Bar
 

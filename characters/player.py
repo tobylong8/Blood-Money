@@ -1,5 +1,5 @@
 class Character:
-    def __init__(self, name, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier, initiative_modifier):
+    def __init__(self, name, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier, initiative_modifier, attacks_per_turn=1):
         self.name = name
         self.remaining_health = remaining_health
         self.max_health = max_health
@@ -8,16 +8,7 @@ class Character:
         self.damage_dice = damage_dice
         self.damage_modifier = damage_modifier
         self.initiative_modifier = initiative_modifier
-
-    def take_damage(self, amount):
-        self.remaining_health -= amount
-        print(f"You take {amount} damage, meaning you have {self.remaining_health}/{self.max_health} health remaining.")
-
-    def is_dead(self):
-        return self.remaining_health <= 0
-
-    def __repr__(self):
-        return self.name
+        self.attacks_per_turn = attacks_per_turn
 
 class Player(Character):
     def __init__(self):
@@ -48,6 +39,7 @@ class Player(Character):
         self.initiative_modifier = self.dexterity_modifier + self.proficiency_bonus
         self.attack_modifier = self.dexterity_modifier + self.proficiency_bonus
         self.damage_modifier = self.dexterity_modifier
+        self.attacks_per_turn = 1
 
         self.skills = {
             "acrobatics": self.dexterity_modifier + self.proficiency_bonus,
@@ -69,15 +61,19 @@ class Player(Character):
             "survival": self.wisdom_modifier,
         }
 
+        self.grit_used = False
+        self.double_tap_used = False
+
         super().__init__(
-            name="John Calloway",
+            name=self.name,
             remaining_health=self.max_health,
             max_health=self.max_health,
             ac=self.ac,
             attack_modifier=self.attack_modifier,
             damage_dice=self.damage_dice,
             damage_modifier=self.damage_modifier,
-            initiative_modifier=self.initiative_modifier
+            initiative_modifier=self.initiative_modifier,
+            attacks_per_turn=self.attacks_per_turn # Safely passed here
         )
 
 player = Player()
