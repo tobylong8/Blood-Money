@@ -18,11 +18,14 @@ def intro():
     print("Some choices will trigger ability checks — the outcome depends on your stats and the roll of a dice.\n")
     print("You play as John Calloway, an infamous outlaw and hired gun with the best shot in the state.")
     print("And the last man who should ever trust a stranger buying him a drink.\n")
-    input("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
+    print("Would you like to start the game (1), or get a quick overview of the mechanics (2)?")
     choice1 = choice(2)
     if choice1 == "2":
         # Mechanics overview
-        print("")
+        print("Mechanics overview...")
+        print("\n")
+    if choice1 == "1":
+        pass
     print("\n")
 
 def duel():
@@ -53,7 +56,7 @@ def duel():
         if persuasion_result == "success" or persuasion_result == "critical success":
             print("\n'Guess we shouldn't fight with the kids around' He says, his angry expression fading.")
             print("Suddenly, you see his friend slap him. 'What the hell has gotten into you, you're just going to let him get away with insultin' your mother!'")
-            print("He remains silent for a few seconds, before his angry expression returns. 'You better start singing your prayers you damn bastard.'\n")
+            print("He remains silent for a few seconds, before his angry expression returns. 'You damn bastard.'\n")
         elif persuasion_result == "failure":
             print("\nYou see that his angry expression isn't gone.")
             print("'It's too late now to apologize now you damn cocksucker!' He shouts, furiously looking at you.\n")

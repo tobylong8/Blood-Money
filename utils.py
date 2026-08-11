@@ -81,4 +81,3 @@ def display_stats(player):
     print(f"HP: {player.remaining_health}/{player.max_health}")
     print(f"AC: {player.ac}")
     print(f"Weapon: {player.weapon}")
-    
