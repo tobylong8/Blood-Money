@@ -1,28 +1,17 @@
 from random import randint
 from time import sleep
 
-def roll_dice(sides, sides2=0, condition=None):
-    if sides2 == 0:
-        roll1 = randint(1,sides)
-        roll2 = randint(1,sides)
-        if condition == "advantage":
-            roll = max(roll1, roll2)
-        elif condition == "disadvantage":
-            roll = min(roll1,roll2)
-        else:
-            roll = roll1
+def roll_dice(sides, condition=None):
+    roll1 = randint(1,sides)
+    roll2 = randint(1,sides)
+
+    if condition == "advantage":
+        roll = max(roll1, roll2)
+    elif condition == "disadvantage":
+        roll = min(roll1,roll2)
     else:
-        roll1 = randint(1,sides)
-        roll2 = randint(1,sides)
-        roll3 = randint(1,sides2)
-        roll4 = randint(1,sides2)
-        if condition == "advantage":
-            roll = max(roll1, roll2) + max(roll3, roll4)
-        elif condition == "disadvantage":
-            roll = min(roll1,roll2) + min (roll3, roll4)
-        else:
-            roll = roll1 + roll2
-            print(f"{roll1} + {roll2}")
+        roll = roll1
+
     return roll
 
 def choice(number_of_choices):
@@ -31,18 +20,21 @@ def choice(number_of_choices):
             choice = input()
             if choice in ["1", "2"]:
                 return choice
+            print()
             print("Please enter 1 or 2.")
     elif number_of_choices == 3:
         while True:
             choice = input()
             if choice in ["1", "2", "3"]:
                 return choice
+            print()
             print("Please enter 1, 2, or 3.")
     elif number_of_choices == 4:
         while True:
             choice = input()
             if choice in ["1", "2", "3", "4"]:
                 return choice
+            print()
             print("Please enter 1, 2, 3 or 4.")
 
 def pause():
@@ -52,6 +44,7 @@ def ability_check(player, skill, dc, condition=None):
     print(f"\n[Press enter to roll {skill}]")
     input()
     modifier = player.skills[skill]
+
     if condition == "advantage":
         print("Rolling with advantage...")
         roll = roll_dice(20, condition="advantage")
@@ -61,8 +54,10 @@ def ability_check(player, skill, dc, condition=None):
     else:
         print("Rolling the d20...")
         roll = roll_dice(20)
+
     total = roll + modifier
     sleep(2)
+    
     if roll == 1:
         result = "critical failure"
         print("You rolled a Natural 1, meaning you fail.")

@@ -108,45 +108,6 @@ def duel():
         print("Firing...\n")
         sleep(2)
         print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor. The crowd of people go silent, and a few people jeer.\n")
-        print("Suddenly, one of the man's friends, a tall, muscular tank, storms up to you. 'That's my brother you just shot, you're a dead man!' The man throws a punch for your face.")
-        print("\nWould you like to try and dodge it (1) or try and block it (2)")
-        choice3 = choice(2)
-        if choice3 == "1":
-            dodge_result = ability_check(player, "acrobatics", 12)
-            if dodge_result == "success" or dodge_result == "critical success":
-                print("\nYou manage to duck your head, dodging the punch.")
-            elif dodge_result == "failure":
-                print("\nYou try to duck your head, but it's too late. The man's fist goes straight into your nose.")
-                player.take_damage(randint(2,4))
-            elif dodge_result == "critical failure":
-                print("\nYou try to duck your head, but it's too late. The man's fist goes straight into your skull. You crash hard into the ground, hitting the back of your head on the hard dirt, knocking you out instantly")
-                # Hospital
-        elif choice3 == "2":
-            block_result = ability_check(player, "athletics", 10)
-            if block_result == "success":
-                print("\nYou manage to raise your arm, blocking the punch.")
-            if block_result == "critical success":
-                dmg = randint(2,4)
-                print(f"\nYou raise your arm, blocking the punch with ease. The man hurts his knuckles, taking {dmg} damage.")
-                tank.remaining_health = tank.remaining_health - dmg
-            elif block_result == "failure":
-                print("\nYou try to raise your arm, but it's too late. The man's fist goes straight into your nose.")
-                player.take_damage(randint(2,4))
-            elif block_result == "critical failure":
-                print("\nYou try to raise your arm, but it's too late. The man's fist goes straight into your nose. You crash hard into the ground, hitting the back of your head on the hard dirt.")
-                player.take_damage(randint(5,6))
-        elif choice3 == "3":
-            step_back_result = ability_check(player, "acrobatics", 8)
-            if step_back_result == "success":
-                print("\nYou step back, narrowly avoiding the punch.\n")
-            if step_back_result == "critical success":
-                print("\nWith grace, you step back, effortlessly avoiding the punch.\n")
-            elif step_back_result == "failure":
-                print("\nYou try to step back, but it's too late. The man's fist goes straight into your nose.")
-                player.take_damage(randint(2,4))
-            elif step_back_result == "critical failure":
-                print("\nYou try to step, but it's too late. The man's fist goes straight into your nose. You crash hard into the ground, hitting the back of your head on the hard dirt.")
-                player.take_damage(randint(5,6))
-            if step_back_result == "success" or step_back_result == "critical success":
-                ability_check(player, "sleight of hand", 12)
+        print("Suddenly, a tall, muscular man, storms up to you. 'That's my brother you just shot, you're a dead man!'")
+        print("You see one of his friends yell: 'Thomas is gonna wipe the floor with you!'")
 

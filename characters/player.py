@@ -1,11 +1,13 @@
 class Character:
-    def __init__(self, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier):
+    def __init__(self, name, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier, initiative_modifier):
+        self.name = name
         self.remaining_health = remaining_health
         self.max_health = max_health
         self.ac = ac
         self.attack_modifier = attack_modifier
         self.damage_dice = damage_dice
         self.damage_modifier = damage_modifier
+        self.initiative_modifier = initiative_modifier
 
     def take_damage(self, amount):
         self.remaining_health -= amount
@@ -13,6 +15,9 @@ class Character:
 
     def is_dead(self):
         return self.remaining_health <= 0
+
+    def __repr__(self):
+        return self.name
 
 class Player(Character):
     def __init__(self):
@@ -23,7 +28,7 @@ class Player(Character):
         self.max_health = 28
         self.ac = 13
         self.damage_dice = 6
-        self.weapon = "None"
+        self.weapon = "Cattleman Revolver"
         self.money = 62
 
         self.strength = 12
@@ -40,6 +45,7 @@ class Player(Character):
         self.wisdom_modifier = (self.wisdom - 10) // 2
         self.charisma_modifier = (self.charisma - 10) // 2
 
+        self.initiative_modifier = self.dexterity_modifier + self.proficiency_bonus
         self.attack_modifier = self.dexterity_modifier + self.proficiency_bonus
         self.damage_modifier = self.dexterity_modifier
 
@@ -64,12 +70,14 @@ class Player(Character):
         }
 
         super().__init__(
+            name="John Calloway",
             remaining_health=self.max_health,
             max_health=self.max_health,
             ac=self.ac,
             attack_modifier=self.attack_modifier,
             damage_dice=self.damage_dice,
-            damage_modifier=self.damage_modifier
+            damage_modifier=self.damage_modifier,
+            initiative_modifier=self.initiative_modifier
         )
 
 player = Player()
