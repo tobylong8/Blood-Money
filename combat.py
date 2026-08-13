@@ -221,6 +221,8 @@ def combat(*combatants):
 
     while player.remaining_health > 0 and len(initiative_order) != 1:
         for person in initiative_order:
+            person.dodging = False
+
             if person == player:
                 print("It is your turn. Would you like to:")
                 print("1) Attack")
@@ -248,7 +250,7 @@ def combat(*combatants):
                             else:
                                 player_attack(player, target)
                         else:
-                            if target.dodging == True:
+                            if choices[0].dodging == True:
                                 player_attack(player, choices[0], "disadvantage")  
                             else:
                                 player_attack(player, choices[0])
@@ -277,7 +279,7 @@ def combat(*combatants):
                                 else:
                                     player_attack(player, target)
                             else:
-                                if target.dodging == True:
+                                if choices[0].dodging == True:
                                     player_attack(player, choices[0], "disadvantage")  
                                 else:
                                     player_attack(player, choices[0])
@@ -300,22 +302,25 @@ def combat(*combatants):
                                     else:
                                         player_attack(player, target)
                                 else:
-                                    if target.dodging == True:
+                                    if choices[0].dodging == True:
                                         player_attack(player, choices[0], "disadvantage")  
                                     else:
                                         player_attack(player, choices[0])
                             player.double_tap_used = True
-
-                    target.dodging = False
-                    
 
                 elif chosen_action == "2":
                     print("You dodge")
                     player.dodging = True
 
                 elif chosen_action == "3":
-                    print("I haven't coded this yet.")
-                    #TODO: code second wind
+                    bonus = roll_dice(10) + player.level
+                    player.remaining_health += bonus
+   
+                    if player.remaining_health > player.max_health:
+                        player.remaining_health = player.max_health
+
+                    player.grit_used = True
+                    print(f"You have {player.remaining_health}/{player.max_health} health")
 
 
                 surviving_combatants = []
@@ -337,12 +342,11 @@ def combat(*combatants):
                     for i in range (person.attacks_per_turn):
                         if player.dodging == True:
                             enemy_attack(person, "disadvantage")
-                            player.dodging = False 
                             print()
                         else:
                             enemy_attack(person)
                             print()
-
+                        
                         if check_if_dead(player) == True:
                             break
                         
