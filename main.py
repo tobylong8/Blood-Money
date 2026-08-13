@@ -6,6 +6,8 @@ from story_state import *
 from combat import *
 from story.prologue import *
 
-clear()
-intro()
-duel()
+#clear()
+#intro()
+#duel()
+
+combat(player, cole)

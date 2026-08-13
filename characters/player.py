@@ -1,5 +1,5 @@
 class Character:
-    def __init__(self, name, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier, initiative_modifier, attacks_per_turn=1):
+    def __init__(self, name, remaining_health, max_health, ac, attack_modifier, damage_dice, damage_modifier, initiative_modifier, attacks_per_turn=1, dodging=False):
         self.name = name
         self.remaining_health = remaining_health
         self.max_health = max_health
@@ -9,6 +9,7 @@ class Character:
         self.damage_modifier = damage_modifier
         self.initiative_modifier = initiative_modifier
         self.attacks_per_turn = attacks_per_turn
+        self.dodging = dodging
 
 class Player(Character):
     def __init__(self):
@@ -40,6 +41,7 @@ class Player(Character):
         self.attack_modifier = self.dexterity_modifier + self.proficiency_bonus
         self.damage_modifier = self.dexterity_modifier
         self.attacks_per_turn = 1
+        self.dodging = False
 
         self.skills = {
             "acrobatics": self.dexterity_modifier + self.proficiency_bonus,
@@ -73,7 +75,8 @@ class Player(Character):
             damage_dice=self.damage_dice,
             damage_modifier=self.damage_modifier,
             initiative_modifier=self.initiative_modifier,
-            attacks_per_turn=self.attacks_per_turn # Safely passed here
+            attacks_per_turn=self.attacks_per_turn,
+            dodging=self.dodging
         )
 
 player = Player()
