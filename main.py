@@ -11,5 +11,3 @@ clear()
 #duel()
 
 combat(player, cole)
-
-input()
