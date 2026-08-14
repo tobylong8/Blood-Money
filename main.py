@@ -1,13 +1,15 @@
-from characters.player import *
+from characters.player import player, Player
+from characters.enemies import cole
 from characters.npcs import *
-from characters.enemies import *
 from utils import *
 from story_state import *
-from combat import *
+from combat import combat
 from story.prologue import *
 
-#clear()
+clear()
 #intro()
 #duel()
 
 combat(player, cole)
+
+input()

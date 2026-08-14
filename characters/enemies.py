@@ -21,7 +21,7 @@ class Enemy(Character):
 
 cole = Enemy(
     name="Cole",
-    max_health=18,
+    max_health=1,
     ac=12,
     attack_modifier=4,
     damage_dice=4,

@@ -1,5 +1,6 @@
 from random import randint
 from time import sleep
+from characters.player import player
 import os, subprocess
 
 def clear():
@@ -73,3 +74,7 @@ def display_stats(player):
     print(f"HP: {player.remaining_health}/{player.max_health}")
     print(f"AC: {player.ac}")
     print(f"Weapon: {player.weapon}")
+
+def long_rest():
+    player.double_tap_used = False
+    player.grit_used = False  

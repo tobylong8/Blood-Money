@@ -13,7 +13,7 @@ class Character:
 
 class Player(Character):
     def __init__(self):
-        self.name = "Jack Calloway"
+        self.name = "John Calloway"
         self.level = 3
         self.char_class = "Gunslinger"
         self.proficiency_bonus = 2
