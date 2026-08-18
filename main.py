@@ -7,7 +7,7 @@ from combat import combat
 from story.prologue import *
 
 clear()
-#intro()
+#intro() 
 #duel()
 
-combat(player, cole)
+print(get_combat_text("brawl","player","hit"))

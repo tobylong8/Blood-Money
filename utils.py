@@ -21,7 +21,7 @@ def roll_dice(sides, condition=None):
 
 def choice(*number_of_choices):
     while True:
-        choice = input()
+        choice = input("> ")
         right_choices = [str(i) for i in range(1, number_of_choices[0] + 1)]
         if choice in right_choices:
             return choice

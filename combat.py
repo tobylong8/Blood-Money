@@ -193,6 +193,69 @@ def enemy_attack(enemy, player, condition=None):
         print(f"You have {player.remaining_health}/{player.max_health} health")
         return damage
 
+def get_combat_text(combat, combatant, outcome):
+    combat_text = {
+        "brawl": {
+            "player": {
+                "hit": [
+                    "Your strike him hard in the cheekbone",
+                    "Your punch hits him directly in the nose, and you see his eyes water slightly",  # <--- Added comma here
+                    "You kick his shin, making him curse in pain",
+                    "You clap his ears, making him wince in pain",
+                ],
+                "critical_hit": [
+                    "You hear a small crack as your knuckles hit his jaw. You have critically hit him!",
+                    "You punch him hard in the ribs, and he jolts. You have critically hit him!",
+                    "You punch his throat, and he gasps for air. You have critically hit him!",
+                ],
+                "kill": [
+                    "You hear a thud as Cole falls to the ground after your devastating final blow",
+                    "Cole topples to the ground after your devastating final blow",
+                ],
+                "miss": [
+                    "You swing a punch but Cole steps back",
+                    "You swing a punch for his nose but he ducks",
+                    "You punch his stomach, but it doesn't affect him at all",
+                ],
+                "dodge": [
+                    "You raise your arms into a tight guard, making it harder for Cole's punches to connect",
+                    "You drop your weight and widen your stance, ready for any attack that comes",
+                    "You focus entirely on seeing any punches before they happen, ready to dodge",
+                ],
+                "death": [
+                    "Cole's punch connects perfectly, and you fall on the hard floor, unconscious",
+                ]
+            },
+
+            "cole": {
+                "hit": [
+                    "Cole punches you hard in the chest, and you are slightly winded",
+                    "Cole kicks you hard in the knee, but you manage to stay standing",
+                    "Cole claps your ears, leaving them ringing horribly",
+                ],
+                "critical_hit": [
+                    "Cole delivers a devastating punch to your left temple, and you feel your brain rattle inside your head. He critically hits",
+                    "Cole punches you hard in the nose, and you feel excruciating pain. He critically hits",
+                    "You lower your guard, and Cole punches you hard in the jaw, making your head jolt. He critically hits",
+                ],
+                "miss": [
+                    "Cole swings at your face but you manage to step back, dodging the punch",
+                    "Cole punches you in the gut but you absorb the blow",
+                    "Cole tries to punch your face but you duck, dodging the blow",
+                    "Cole sloppily throws a punch at you but he misses",
+                ],
+                "dodge": [
+                    "Cole raises is arms in a defensive stance, making it harder to hit him",
+                    "Cole tenses him abdomen and puts his arms around his head, making him like a brick wall",
+                    "Cole takes a second to read you, trying to gauge when and how you'll punch",
+                ]
+            }
+        },
+    }
+
+    return random.choice(combat_text[combat][combatant][outcome])
+
+
 def combat(*combatants):
     player = next(person for person in combatants if isinstance(person, Player))
     initiative_order = []
