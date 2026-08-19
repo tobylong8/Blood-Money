@@ -6,8 +6,4 @@ from story_state import *
 from combat import combat
 from story.prologue import *
 
-clear()
-#intro() 
-#duel()
-
-print(get_combat_text("brawl","player","hit"))
+prologue()
