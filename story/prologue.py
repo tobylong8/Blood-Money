@@ -99,8 +99,8 @@ def duel():
 
     pause()
     clear()
-    print("A few tense seconds of silence pass, where the only thing you hear is the howling wind. Eventually, the silence is broken when the man from the crowd mutters: 'When is this duel gonna start goddamnit?'\n")
-    print("A tall man wearing a long, brown coat with a silver star pinned to his chest steps from the crowd, 'Hello gentlemen, I'm Sheriff Briggs. I'll be overseeing this duel, and I want to see a fair game from both of you.'\n")
+    print("A few tense seconds of silence pass, where the only thing you hear is the howling wind. Eventually, the silence is broken when a man from the crowd mutters: 'When is this duel gonna start goddamnit?'\n")
+    print("A tall man wearing a long, brown coat with a silver star pinned to his chest emerges from the crowd, 'Hello gentlemen, I'm Sheriff Briggs. I'll be overseeing this duel, and I want to see a fair game from both of you.'\n")
     print("'I will count to 10. When I say 10, you can start shooting. If you shoot earlier than 10, there will be consequences.'\n")
     print("The sheriff stands in the middle of the street, he clears his throat and begins counting: '1, 2, 3, 4.'\n")
     print("Would you like to comply with the rules and wait for 10 seconds (1), or shoot at him early (2)?")
@@ -157,7 +157,7 @@ def duel():
         input("[Press enter to fire your revolver].")
         print("Firing...\n")
         sleep(2)
-        print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead. He falls to the floor. The crowd of people go silent, and a few people jeer.\n")
+        print("You pull the trigger, and the bullet speeds through the air, and within less than a second, it hits the man square in the forehead, and he falls to the floor. The crowd of people go silent, and a few people jeer.\n")
         print("Suddenly, a tall, muscular man, storms up to you. 'That's my brother you just shot, you're a dead man!'")
         print("You see one of his friends yell: 'Cole is gonna wipe the floor with you!'")
         pause()
@@ -173,23 +173,23 @@ def duel():
 
     if lost_duel == False and cheated_in_duel == False:
         if lost_brawl == False:
-            print("You catch your breath from the tense duel, your knuckles aching after the brawls. You look around, weighing up your next move")
+            print("You catch your breath from the tense duel, your knuckles aching after the brawls. You look around, weighing up your next move.")
         else:
-            print("You wake up a few hours later on the floor, sunlight beaming on you. Your entire body feels bruised, but you manage to get up. You look around, weighing up your next move")
+            print("You wake up a few hours later on the floor, sunlight beaming on you. Your entire body feels bruised, but you manage to get up. You look around, weighing up your next move.")
         pause()
 
     elif lost_duel == True:
-        print("You wake up a few days later in the town doctor. You look to your right and see a small man organising a drawer of medical supplies. He notices you're awake")
-        print("\n'Oh you've woken up. I must say that was the most entertaining duel I've ever watched. It could be because of luck or skill, but I'm happy your alive'")
-        print("\nYou look down at your shoulder, which has been bandaged, but you still feel a throbbing ache")
-        print("\n'Luckily the bullet just hit your shoulder, which I've seen many times. If that bullet hit your chest or head you would've died on that street. I know I'm not your parent but you should avoid shootouts as they're known to be pretty unsafe'")
-        print("\nYou look him dead in the eyes, and he gets a bit flustered")
-        print("\n'Sorry I'll stop rambling. I will need a payment of $10 for my services though'")
+        print("You wake up a few days later in the town doctor. You look to your right and see a small man organising a drawer of medical supplies. He notices you're awake.")
+        print("\n'Oh you've woken up. I must say that was the most entertaining duel I've ever watched. It could be because of luck or skill, but I'm happy your alive.'")
+        print("\nYou look down at your shoulder, which has been bandaged, but you still feel a throbbing ache.")
+        print("\n'Luckily the bullet just hit your shoulder, which I've seen many times. If that bullet hit your chest or head you would've died on that street. I know I'm not your parent but you should avoid shootouts as they're known to be pretty unsafe.'")
+        print("\nYou look him dead in the eyes, and he gets a bit flustered.")
+        print("\n'Sorry I'll stop rambling. I will need a payment of $10 for my services though.'")
         print("\nWould you like to pay the doctor (1), try and haggle him (2), or threaten him with your revolver (3)?")
         choice3 = choice(3)
 
         if choice3 == "1":
-            print("\nYou grudgingly pull a $10 bill from your satchel and pass it him")
+            print("\nYou grudgingly pull a $10 bill from your satchel and pass it him.")
             player.money -= 10
             print(f"You now have ${player.money}")
             print("\nYou get up, clutching your shoulder before leaving.")
@@ -199,46 +199,54 @@ def duel():
             persuasion_result = ability_check(player, "persuasion", 12)
 
             if persuasion_result == "success":
-                print("\nThe doctor looks at you for a second, then he sighs")
-                print("'Fine', he says. 'I guess I can do $5'")
-                print("\nYou pull a $5 bill from your satchel and pass it him")
+                print("\nThe doctor looks at you for a second, then he sighs.")
+                print("'Fine', he says. 'I guess I can do $5.'")
+                print("\nYou pull a $5 bill from your satchel and pass it him.")
                 player.money -= 5
-                print(f"You now have ${player.money}")
+                print(f"You now have ${player.money}.")
                 print("\nYou get up, clutching your shoulder before leaving.")
+                print("You take a deep breath of fresh air and look around, weighing up your next move.")
+                pause()
 
             elif persuasion_result == "critical success":
                 print("\nThe doctor looks at you for a second.")
                 print("You know what, I had a pretty wealthy customer earlier today, you can have it for free.")
                 print("\nYou thank him before leaving.")
+                print("You take a deep breath of fresh air and look around, weighing up your next move.")
+                pause()
 
             elif persuasion_result == "failure" or persuasion_result == "critical failure":
                 print("\nThe doctor looks at you for a second, then he shakes his head")
                 print("\n'You look more well off than me with that engraved revolver in your holster. Now pay up, and no more haggling'")
                 print("\nYou grudgingly pull a $10 bill from your satchel and pass it him")
                 player.money -= 10
-                print(f"You now have ${player.money}")
+                print(f"You now have ${player.money}.")
                 print("\nYou get up, clutching your shoulder before leaving.")
+                print("You take a deep breath of fresh air and look around, weighing up your next move.")
+                pause()
 
         elif choice3 == "3":
             print("\nYou get up and point your revolver at his head.")
             print("'I wouldn't suggest making me pay if I were you'")
             print("\nThe man gulps, then he nods")
             print("\nYou put your revolver back into your holster before leaving, clutching your shoulder.")
+            print("You make sure nobody saw you, then look around, weighing up your next move.")
+            pause()
 
     elif cheated_in_duel == True:
         if lost_brawl == False:
-            print("After a difficult fight you manage to knock out Cole. You wipe the sweat from your brow")
-            print("\nSuddenly you are knocked unconscious by someone behind you")
+            print("After a difficult fight you manage to knock out Cole. You wipe the sweat from your brow.")
+            print("\nSuddenly you are knocked unconscious by someone behind you...")
             pause()
         clear()
-        print("You wake up, your head throbbing. You look around and realise you're in a jail cell. You curse to yourself. Across the room is Sheriff Briggs, organising some files. He notices you're awake")
+        print("You wake up, your head throbbing. You look around and realise you're in a jail cell. You curse to yourself. Across the room is Sheriff Briggs, organising some files. He notices you're awake.")
         print("\n'Good, you're finally awake. I did say breaking the rules would have consequences, and those consequences are being locked here for the night. You're lucky some rancher convinced me not to hang you, or you would be dead right now. Could I have your name please?'")
-        print("\nBecause of your large bounty across multiple states, you lie, 'John... Jim Milton'")
-        print("\nSheriff Briggs looks at you for a second, 'Okay John Jim Milton.' He chuckles to himself before going to his files to search them")
-        print("'I couldn't find any bounties on your name, so no payout for me. Anyway make yourself comfy because it's going to be a long night'")
+        print("\nBecause of your large bounty across multiple states, you lie: 'John... Jim Milton.'")
+        print("\nSheriff Briggs looks at you for a second, 'Okay John Jim Milton.' He chuckles to himself before going to his files to search them.")
+        print("'I couldn't find any bounties on your name, so no payout for me. Anyway make yourself comfy because it's going to be a long night.'")
         pause()
         clear()
-        print("After a relatively comfy night in the first bed you've slept in for a while, you wake up. The sheriff lets you out of your cell, and you take a deep breath of fresh air. You look around, weighing up your next move")
+        print("After a relatively comfy night in the first bed you've slept in for a while, you wake up. The sheriff lets you out of your cell, and you take a deep breath of fresh air. You look around, weighing up your next move.")
         pause()
 
     player.remaining_health = player.max_health
